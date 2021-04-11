@@ -100,8 +100,11 @@ public class CarService {
      *
      * @param id the ID number of the car to delete
      */
-    public void delete(Long id) {
-        Car carToDelete = repository.findById(id).orElseThrow(CarNotFoundException::new);
-        repository.delete(carToDelete);
+    public void delete(Long id) throws CarNotFoundException {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+        } else {
+            throw new CarNotFoundException();
+        }
     }
 }
