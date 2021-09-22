@@ -71,6 +71,16 @@ public class CarControllerTest {
                 .andExpect(status().isCreated());
     }
 
+    @Test
+    public void updateCar() throws Exception {
+        Car car = getCar();
+        Details carDetails = new Details();
+        carDetails.setBody("Test");
+        carDetails.setEngine("Best engine");
+        car.setDetails(carDetails);
+        mvc.perform(put("/cars/{id}", car.getId()));
+    }
+
     /**
      * Tests if the read operation appropriately returns a list of vehicles.
      *
