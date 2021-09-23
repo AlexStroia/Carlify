@@ -8,6 +8,7 @@ import com.udacity.vehicles.domain.car.CarRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 
@@ -84,17 +85,19 @@ public class CarService {
      * @return the new/updated car is stored in the repository
      */
     public Car save(Car car) {
-        if (car.getId() != null) {
+        if (Objects.nonNull(car.getId())) {
             return repository.findById(car.getId())
                     .map(carToBeUpdated -> {
+                        carToBeUpdated.setPrice(car.getPrice());
+                        carToBeUpdated.setCondition(car.getCondition());
+                        carToBeUpdated.setCreatedAt(car.getCreatedAt());
+                        carToBeUpdated.setModifiedAt(car.getModifiedAt());
                         carToBeUpdated.setDetails(car.getDetails());
                         carToBeUpdated.setLocation(car.getLocation());
                         return repository.save(carToBeUpdated);
                     }).orElseThrow(CarNotFoundException::new);
         }
 
-        car.setCreatedAt(LocalDateTime.now());
-        car.setModifiedAt(LocalDateTime.now());
         return repository.save(car);
     }
 

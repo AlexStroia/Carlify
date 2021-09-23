@@ -9,6 +9,7 @@
         <module name="vehicles-api" />
         <module name="vehicles-api (1)" />
         <module name="pricing-service" />
+        <module name="eureka" />
         <module name="boogle-maps" />
       </profile>
     </annotationProcessing>
